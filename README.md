@@ -23,3 +23,49 @@ We are probably talking about decades here.
    - [ ] Remote
  - [ ] UI framework
  - [ ] Tooling
+
+## Language design
+
+The end goal of the project is to have the following code:
+
+```
+CREATE TABLE todo (
+    id int NOT NULL AUTO_INCREMENT,
+    item TEXT NOT NULL,
+);
+
+CREATE VIEW todo_screen AS
+    SELECT ui_column(
+        SELECT ui_row(
+            ui_text(text = item),
+            ui_button(
+                text = "Delete",
+                onClick = () => delete(id),
+            ),
+        )
+        FROM todo
+        UNION
+        SELECT ui_row(
+            ui_text_edit(
+                id = "add_new_todo",
+            ),
+            ui_button(
+                text = "Add",
+                onClick = () => insert(ui_find_element("add_new_todo").text),
+            ),
+        )
+    )
+;
+
+insert:
+INSERT INTO todo (item)
+VALUES (:item)
+;
+
+delete:
+DELETE FROM todo
+WHERE id = (:id)
+;
+```
+
+Compile into two artifacts server and client. Client will have UI and server will host a database and will push data to the client as well as accept insert and delete requests from the client.
