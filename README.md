@@ -40,7 +40,7 @@ CREATE VIEW todo_screen AS
             ui_text(text = item),
             ui_button(
                 text = "Delete",
-                onClick = () => delete(id),
+                on_click = () => delete(id),
             ),
         )
         FROM todo
@@ -51,7 +51,7 @@ CREATE VIEW todo_screen AS
             ),
             ui_button(
                 text = "Add",
-                onClick = () => insert(ui_find_element("add_new_todo").text),
+                on_click = () => insert(ui_find_element("add_new_todo").text),
             ),
         )
     )

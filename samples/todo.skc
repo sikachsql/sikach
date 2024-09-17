@@ -1,0 +1,37 @@
+CREATE TABLE todo (
+    id int NOT NULL AUTO_INCREMENT,
+    item TEXT NOT NULL,
+);
+
+CREATE VIEW todo_screen AS
+    SELECT ui_column(
+        SELECT ui_row(
+            ui_text(text = item),
+            ui_button(
+                text = "Delete",
+                on_click = () => delete(id),
+            ),
+        )
+        FROM todo
+        UNION
+        SELECT ui_row(
+            ui_text_edit(
+                id = "add_new_todo",
+            ),
+            ui_button(
+                text = "Add",
+                on_click = () => insert(ui_find_element("add_new_todo").text),
+            ),
+        )
+    )
+;
+
+insert:
+INSERT INTO todo (item)
+VALUES (:item)
+;
+
+delete:
+DELETE FROM todo
+WHERE id = (:id)
+;
