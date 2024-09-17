@@ -28,7 +28,7 @@ We are probably talking about decades here.
 
 The end goal of the project is to have the following code:
 
-```
+```sql
 CREATE TABLE todo (
     id int NOT NULL AUTO_INCREMENT,
     item TEXT NOT NULL,
