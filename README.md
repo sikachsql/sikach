@@ -69,3 +69,10 @@ WHERE id = (:id)
 ```
 
 Compile into two artifacts server and client. Client will have UI and server will host a database and will push data to the client as well as accept insert and delete requests from the client.
+
+## POC 1
+
+Write manually following:
+* Server written in dart hosting SQLite database
+* Client written in flutter hostling SQLite cache of server data
+
